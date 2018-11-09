@@ -1,0 +1,2 @@
+THis folder will be populated with hdf5 type dat created using "build_hdf5.py" 
+It will generate the train test and validation hdf5 files
