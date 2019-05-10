@@ -39,26 +39,26 @@ class HDF5DatasetGenerator:
 					# initialize the list of processed images
 					procImages = []
 					
-				# loop over the images
-				for image in images:
-					# loop over the preprocessors and apply each
-					# to the image
-					for p in self.preprocessors:
-						image = p.preprocess(image)
-					procImages.append(image)
+					# loop over the images
+					for image in images:
+						# loop over the preprocessors and apply each
+						# to the image
+						for p in self.preprocessors:
+							image = p.preprocess(image)
+						procImages.append(image)
 					
-				# update the images array to be the processed
-				# images
-				images = np.array(procImages)
+					# update the images array to be the processed
+					# images
+					images = np.array(procImages)
 				
-			# if the data augmenator exists, apply it
-			if self.aug is not None:
-				(images, labels) = next(self.aug.flow(images, labels, batch_size=self.batchSize))
+				# if the data augmenator exists, apply it
+				if self.aug is not None:
+					(images, labels) = next(self.aug.flow(images, labels, batch_size=self.batchSize))
 				
-			# yield a tuple of images and labels
-			yield (images, labels)
+				# yield a tuple of images and labels
+				yield (images, labels)
 			
-		epochs +=1
+			epochs +=1
 	def close(self):
 		# close the database
 		self.db.close()
